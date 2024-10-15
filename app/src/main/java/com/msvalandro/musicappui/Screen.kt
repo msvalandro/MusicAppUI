@@ -21,3 +21,9 @@ sealed class Screen(val title: String, val route: String) {
                 R.drawable.ic_add_account)
         }
 }
+
+val screensInDrawer = listOf(
+    Screen.DrawerScreen.Account,
+    Screen.DrawerScreen.Subscription,
+    Screen.DrawerScreen.AddAccount
+)
