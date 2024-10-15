@@ -131,7 +131,7 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, padding: 
         }
 
         composable(Screen.DrawerScreen.Subscription.route) {
-
+            SubscriptionView()
         }
     }
 }
