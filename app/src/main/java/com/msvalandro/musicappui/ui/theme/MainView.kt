@@ -66,7 +66,7 @@ fun MainView() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Home") },
+                title = { Text(title.value) },
                 navigationIcon = {
                     IconButton(onClick = { scope.launch { scaffoldState.drawerState.open() } }) {
                         Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Menu")
@@ -127,7 +127,7 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, padding: 
         modifier = Modifier.padding(padding)) {
 
         composable(Screen.DrawerScreen.Account.route) {
-
+            AccountView()
         }
 
         composable(Screen.DrawerScreen.Subscription.route) {
