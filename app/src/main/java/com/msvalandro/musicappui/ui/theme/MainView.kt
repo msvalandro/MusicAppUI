@@ -51,6 +51,10 @@ fun MainView() {
     val navBackStackEntry by controller.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    val dialogOpen = remember {
+        mutableStateOf(false)
+    }
+
     val currentScreen = remember {
         viewModel.currentScreen.value
     }
@@ -78,7 +82,7 @@ fun MainView() {
                         scope.launch { scaffoldState.drawerState.close() }
 
                         if (item.drawerRoute == Screen.DrawerScreen.AddAccount.route) {
-                            // TODO: open dialog
+                            dialogOpen.value = true
                         } else {
                             title.value = item.drawerTitle
                             controller.navigate(item.drawerRoute)
@@ -89,6 +93,7 @@ fun MainView() {
         }
     ) {
         Navigation(navController = controller, viewModel = viewModel, padding = it)
+        AccountDialog(dialogOpen = dialogOpen)
     }
 }
 
@@ -118,7 +123,7 @@ fun DrawerItem(selected: Boolean, item: Screen.DrawerScreen, onDrawerItemClicked
 fun Navigation(navController: NavController, viewModel: MainViewModel, padding: PaddingValues) {
     NavHost(
         navController = navController as NavHostController,
-        startDestination = Screen.DrawerScreen.AddAccount.route,
+        startDestination = Screen.DrawerScreen.Account.route,
         modifier = Modifier.padding(padding)) {
 
         composable(Screen.DrawerScreen.Account.route) {
