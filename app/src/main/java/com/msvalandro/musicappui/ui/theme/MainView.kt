@@ -6,8 +6,12 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.rememberScaffoldState
@@ -36,6 +40,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.msvalandro.musicappui.MainViewModel
 import com.msvalandro.musicappui.Screen
+import com.msvalandro.musicappui.screensInBottom
 import com.msvalandro.musicappui.screensInDrawer
 import kotlinx.coroutines.launch
 
@@ -63,7 +68,27 @@ fun MainView() {
         mutableStateOf(currentScreen.title)
     }
 
+    val bottomBar: @Composable () -> Unit = {
+        if (currentScreen is Screen.DrawerScreen || currentScreen == Screen.BottomScreen.Home) {
+            BottomNavigation(modifier = Modifier.wrapContentSize()) {
+                screensInBottom.forEach {
+                    BottomNavigationItem(
+                        selected = currentRoute == it.bottomRoute,
+                        onClick = { controller.navigate(it.bottomRoute) },
+                        icon = {
+                            Icon(painter = painterResource(id = it.icon), contentDescription = it.bottomTitle)
+                        },
+                        label = { Text(text = it.bottomTitle) },
+                        selectedContentColor = Color.White,
+                        unselectedContentColor = Color.Black
+                    )
+                }
+            }
+        }
+    }
+
     Scaffold(
+        bottomBar = bottomBar,
         topBar = {
             TopAppBar(
                 title = { Text(title.value) },
