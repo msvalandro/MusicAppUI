@@ -44,6 +44,7 @@ import com.msvalandro.musicappui.screensInBottom
 import com.msvalandro.musicappui.screensInDrawer
 import com.msvalandro.musicappui.ui.theme.BrowseScreen
 import com.msvalandro.musicappui.ui.theme.HomeView
+import com.msvalandro.musicappui.ui.theme.LibraryScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -162,7 +163,7 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, padding: 
         }
 
         composable(Screen.BottomScreen.Library.bottomRoute) {
-
+            LibraryScreen()
         }
 
         composable(Screen.DrawerScreen.Account.route) {
