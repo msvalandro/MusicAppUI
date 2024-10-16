@@ -28,6 +28,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.primarySurface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -102,7 +103,10 @@ fun MainView() {
 
                     BottomNavigationItem(
                         selected = currentRoute == it.bottomRoute,
-                        onClick = { controller.navigate(it.bottomRoute) },
+                        onClick = {
+                            title.value = it.bottomTitle
+                            controller.navigate(it.bottomRoute)
+                        },
                         icon = {
                             Icon(
                                 painter = painterResource(id = it.icon),
@@ -131,7 +135,19 @@ fun MainView() {
             topBar = {
                 TopAppBar(
                     title = { Text(title.value) },
-
+                    actions = {
+                        IconButton(onClick = {
+                            scope.launch {
+                                if (modalSheetState.isVisible) {
+                                    modalSheetState.hide()
+                                } else {
+                                    modalSheetState.show()
+                                }
+                            }
+                        }) {
+                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "More")
+                        }
+                    },
                     navigationIcon = {
                         IconButton(onClick = { scope.launch { scaffoldState.drawerState.open() } }) {
                             Icon(imageVector = Icons.Default.AccountCircle, contentDescription = "Menu")
@@ -192,13 +208,32 @@ fun MoreBottomSheet(modifier: Modifier) {
         .height(300.dp)
         .background(MaterialTheme.colors.primarySurface)) {
         Column(modifier = modifier.padding(16.dp), verticalArrangement = Arrangement.SpaceBetween) {
+            Row(modifier = modifier.padding(16.dp)){
+                Icon(modifier = Modifier.padding(end = 8.dp),
+                    painter =  painterResource(id = R.drawable.ic_settings),
+                    contentDescription = "Settings")
+                Text(text = "Settings", fontSize = 20.sp, color = Color.White)
+            }
             Row(modifier = modifier.padding(16.dp)) {
                 Icon(
                     modifier = Modifier.padding(end = 8.dp),
-                    painter = painterResource(id = R.drawable.ic_settings),
-                    contentDescription = "Settings"
+                    painter = painterResource(id = R.drawable.ic_microphone),
+                    contentDescription = "Share"
                 )
-                Text(text = "Settings", fontSize = 20.sp, color = Color.White)
+
+                Text(
+                    text = "Share",
+                    fontSize = 20.sp,
+                    color = Color.White
+                )
+            }
+            Row(modifier = modifier.padding(16.dp)) {
+                Icon(
+                    modifier = Modifier.padding(end = 8.dp),
+                    painter = painterResource(id = R.drawable.ic_browse),
+                    contentDescription = "Help"
+                )
+                Text(text = "Help", fontSize = 20.sp, color = Color.White)
             }
         }
     }
