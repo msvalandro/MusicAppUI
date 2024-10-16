@@ -42,6 +42,8 @@ import com.msvalandro.musicappui.MainViewModel
 import com.msvalandro.musicappui.Screen
 import com.msvalandro.musicappui.screensInBottom
 import com.msvalandro.musicappui.screensInDrawer
+import com.msvalandro.musicappui.ui.theme.BrowseScreen
+import com.msvalandro.musicappui.ui.theme.HomeView
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -152,11 +154,11 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, padding: 
         modifier = Modifier.padding(padding)) {
 
         composable(Screen.BottomScreen.Home.bottomRoute) {
-
+            HomeView()
         }
 
         composable(Screen.BottomScreen.Browse.bottomRoute) {
-
+            BrowseScreen()
         }
 
         composable(Screen.BottomScreen.Library.bottomRoute) {
